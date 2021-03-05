@@ -1,0 +1,603 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%% Simple LaTeX CV Template %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% NOTE: If you find that it says                                     %%
+%%                                                                    %%
+%%                           1 of 1                                %%
+%%                                                                    %%
+%% at the bottom of your first page, this means that the AUX file     %%
+%% was not available when you ran LaTeX on this source. Simply RERUN  %%
+%% LaTeX to get the ``??'' replaced with the number of the last page  %%
+%% of the document. The AUX file will be generated on the first run   %%
+%% of LaTeX and used on the second run to fill in all of the          %%
+%% references.                                                        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Don't like 10pt? Try 11pt or 12pt
+\documentclass[10pt]{article}
+
+% The automated optical recognition software used to digitize resume
+% information works best with fonts that do not have serifs. This
+% command uses a sans serif font throughout. Uncomment both lines (or at
+% least the second) to restore a Roman font (i.e., a font with serifs).
+%\usepackage{times}
+%\renewcommand{\familydefault}{\sfdefault}
+
+% This is a helpful package that puts math inside length specifications
+\usepackage{calc}
+\usepackage{comment}
+
+% Simpler bibsection for CV sections
+% (thanks to natbib for inspiration)
+\makeatletter
+\newlength{\bibhang}
+\setlength{\bibhang}{0em} %1em}
+\newlength{\bibsep}
+ {\@listi \global\bibsep\itemsep \global\advance\bibsep by\parsep}
+
+
+\renewcommand{\baselinestretch}{1.12} \normalsize
+\makeatother
+\reversemarginpar
+ 
+%\newenvironment{loneinnerlist}[1][\enskip\textbullet]%
+%        {\begin{itemize}[#1,leftmargin=*,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt]}
+%        {\end{itemize}\vspace{-.6\baselineskip}}
+        
+       % #\itemindent#1
+%        {\begin{list}{}{%
+       %\setlength{\leftmargin}{\bibhang}%
+       %\setlength{\itemindent}{500em}%{-\leftmargin}%
+       %\setlength{\itemsep}{\bibsep}%
+       %\setlength{\parsep}{\z@}%
+       % \setlength{\partopsep}{0pt}%
+       % \setlength{\topsep}{0pt}}}
+%        {\end{list}\vspace{-.6\baselineskip}}
+
+%\renewenvironment{thebibliography}[1]{%
+% \parindent \z@\bibsection \bibpreamble\bibfont\list}
+% Layout: Puts the section titles on left side of page
+
+%
+%         PAPER SIZE, PAGE NUMBER, AND DOCUMENT LAYOUT NOTES:
+%
+% The next \usepackage line changes the layout for CV style section
+% headings as marginal notes. It also sets up the paper size as either
+% letter or A4. By default, letter was used. If A4 paper is desired,
+% comment out the letterpaper lines and uncomment the a4paper lines.
+%
+% As you can see, the margin widths and section title widths can be
+% easily adjusted.
+%
+% ALSO: Notice that the includefoot option can be commented OUT in order
+% to put the PAGE NUMBER *IN* the bottom margin. This will make the
+% effective text area larger.
+%
+% IF YOU WISH TO REMOVE THE ``of LASTPAGE'' next to each page number,
+% see the note about the +LP and -LP lines below. Comment out the +LP
+% and uncomment the -LP.
+%
+% IF YOU WISH TO REMOVE PAGE NUMBERS, be sure that the includefoot line
+% is uncommented and ALSO uncomment the \pagestyle{empty} a few lines
+% below.
+%
+
+%% Use these lines for letter-sized paper
+\usepackage[paper=letterpaper,
+            %includefoot, % Uncomment to put page number above margin
+            marginparwidth=1.2in,     % Length of section titles
+            marginparsep=.05in,       % Space between titles and text
+            margin=0.6in,               % 1 inch margins
+            includemp]{geometry}
+
+%% Use these lines for A4-sized paper
+%\usepackage[paper=a4paper,
+%            %includefoot, % Uncomment to put page number above margin
+%            marginparwidth=30.5mm,    % Length of section titles
+%            marginparsep=1.5mm,       % Space between titles and text
+%            margin=25mm,              % 25mm margins
+%            includemp]{geometry}
+
+%% More layout: Get rid of indenting throughout entire document
+\setlength{\parindent}{0in}
+
+\usepackage[shortlabels]{enumitem}
+
+%% Reference the last page in the page number
+%
+% NOTE: comment the +LP line and uncomment the -LP line to have page
+%       numbers without the ``of ##'' last page reference)
+%
+% NOTE: uncomment the \pagestyle{empty} line to get rid of all page
+%       numbers (make sure includefoot is commented out above)
+%
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+%\pagestyle{empty}      % Uncomment this to get rid of page numbers
+\fancyhf{}\renewcommand{\headrulewidth}{0pt}
+\fancyfootoffset{\marginparsep+\marginparwidth}
+\newlength{\footpageshift}
+\setlength{\footpageshift}
+          {0.5\textwidth+0.5\marginparsep+0.5\marginparwidth-2in}
+\lfoot{\hspace{\footpageshift}%
+       \parbox{4in}{\, \hfill %
+                    \arabic{page} of \protect\pageref*{LastPage} % +LP
+%                    \arabic{page}                               % -LP
+                    \hfill \,}}
+
+% Finally, give us PDF bookmarks
+\usepackage{color,hyperref}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.3}
+\hypersetup{colorlinks,breaklinks,
+            linkcolor=darkblue,urlcolor=darkblue,
+            anchorcolor=darkblue,citecolor=darkblue}
+
+%%%%%%%%%%%%%%%%%%%%%%%% End Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% The title (name) with a horizontal rule under it
+% (optional argument typesets an object right-justified across from name
+%  as well)
+%
+% Usage: \makeheading{name}
+%        OR
+%        \makeheading[right_object]{name}
+%
+% Place at top of document. It should be the first thing.
+% If ``right_object'' is provided in the square-braced optional
+% argument, it will be right justified on the same line as ``name'' at
+% the top of the CV. For example:
+%
+%       \makeheading[\emph{Curriculum vitae}]{Your Name}
+%
+% will put an emphasized ``Curriculum vitae'' at the top of the document
+% as a title. Likewise, a picture could be included:
+%
+%   \makeheading[\includegraphics[height=1.5in]{my_picutre}]{Your Name}
+%
+% the picture will be flush right across from the name.
+%\newenvironment{bibsection}%
+%        {\begin{enumerate}{}{%
+        %\setlength{\leftmargin}{\bibhang}%
+        %\setlength{\itemindent}{100pt}%
+        %\setlength{\itemsep}{\bibsep}%
+        %\setlength{\parsep}{\z@}%
+        %\setlength{\partopsep}{0pt}%
+        %\setlength{\topsep}{0pt}
+%        }}
+%        {\end{enumerate}\vspace{-.6\baselineskip}}
+ \newenvironment{bibsection}[1][\enskip\textbullet]%
+        {\begin{enumerate}[leftmargin=*,itemsep=\bibsep,parsep=\parsep,itemsep=0pt,topsep=0pt,partopsep=0pt]}
+        {\end{enumerate}}     
+        
+\newcommand{\makeheading}[2][]%
+        {\hspace*{-\marginparsep minus \marginparwidth}%
+         \begin{minipage}[t]{\textwidth+\marginparwidth+\marginparsep}%
+             {\large \bfseries #2 \hfill #1}\\[-0.15\baselineskip]%
+                 \rule{\columnwidth}{1pt}%
+         \end{minipage}}
+
+% The section headings
+%
+% Usage: \section{section name}
+\renewcommand{\section}[1]{\pagebreak[3]%
+    \hyphenpenalty=10000%
+    \vspace{1.0\baselineskip}%
+    \phantomsection\addcontentsline{toc}{section}{#1}%
+    \noindent\llap{\scshape\smash{\parbox[t]{\marginparwidth}{\raggedright #1}}}%
+    \vspace{-\baselineskip}\par}
+
+% An itemize-style list with lots of space between items
+\newenvironment{outerlist}[1][\enskip\textbullet]%
+        {\begin{itemize}[#1,leftmargin=*]}{\end{itemize}%
+         \vspace{-1.2\baselineskip}}
+
+% An environment IDENTICAL to outerlist that has better pre-list spacing
+% when used as the first thing in a \section
+\newenvironment{lonelist}[1][\enskip\textbullet]%
+        {\begin{list}{#1}{%
+        \setlength{\partopsep}{0pt}%
+        \setlength{\topsep}{0pt}}}
+        {\end{list}\vspace{-.6\baselineskip}}
+
+% An itemize-style list with little space between items
+\newenvironment{innerlist}[1][\enskip\textbullet]%
+        {\begin{itemize}[#1,leftmargin=*,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt]}
+        {\end{itemize}}
+
+% An environment IDENTICAL to innerlist that has better pre-list spacing
+% when used as the first thing in a \section
+\newenvironment{loneinnerlist}[1][\enskip\textbullet]%
+        {\begin{itemize}[#1,leftmargin=*,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt]}
+        {\end{itemize}\vspace{-.6\baselineskip}}
+
+% To add some paragraph space between lines.
+% This also tells LaTeX to preferably break a page on one of these gaps
+% if there is a needed pagebreak nearby.
+\newcommand{\blankline}{\quad\pagebreak[3]}
+\newcommand{\halfblankline}{\quad\vspace{-0.5\baselineskip}\pagebreak[3]}
+
+% Uses hyperref to link DOI
+\newcommand\doilink[1]{\href{http://dx.doi.org/#1}{#1}}
+\newcommand\doi[1]{doi:\doilink{#1}}
+
+% For \url{SOME_URL}, links SOME_URL to the url SOME_URL
+\providecommand*\url[1]{\href{#1}{#1}}
+% Same as above, but pretty-prints SOME_URL in teletype fixed-width font
+\renewcommand*\url[1]{\href{#1}{\texttt{#1}}}
+
+% For \email{ADDRESS}, links ADDRESS to the url mailto:ADDRESS
+\providecommand*\email[1]{\href{mailto:#1}{#1}}
+% Same as above, but pretty-prints ADDRESS in teletype fixed-width font
+%\renewcommand*\email[1]{\href{mailto:#1}{\texttt{#1}}}
+
+%\providecommand\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+%    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+%\providecommand\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+%    \TeX}}
+\providecommand\BibTeX{{B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    \TeX}}
+\providecommand\Matlab{\textsc{Matlab}}
+
+%%%%%%%%%%%%%%%%%%%%%%%% End Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%% Begin CV Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\makeheading {\huge Jing Li}
+
+\section{ Contact Information}
+
+% NOTE: Mind where the & separators and \\ breaks are in the following
+%       table.
+%
+% ALSO: \rcollength is the width of the right column of the table
+%       (adjust it to your liking; default is 1.85in).
+%
+\newlength{\rcollength}\setlength{\rcollength}{4.0in}%
+%
+\begin{tabular}[t]{@{}p{\textwidth-\rcollength}p{\rcollength}}
+%\href{http://www.cse.osu.edu/}%
+%     {Department of Computer Science and Engineering} & \\
+%\href{http://www.osu.edu/}{The Ohio State University}
+2238 A,   & \textbf{Phone:} (765)476-3344\\
+ 1125 E Renner Rd,      & \textbf{Email:} \email{lijinginxjtu@gmail.com} \\
+Richardson, TX  75082 &  \textbf{Homepage:} \href{https://engineering.purdue.edu/people/jing.li.21}{engineering.purdue.edu/people/jing.li.21}
+\end{tabular}
+
+%\section{Objective}
+%	Seeking an internship in \textbf{computer vision/image processing} research
+	%Seeking internship \textbf{computer vision/image processing} research position.%,  starting \textbf{Jan. 2018}
+%\vspace{-.1in}
+%Insert text here if you want to
+%\begin{innerlist}
+%\item More information and auxiliary documents can be found at\\\url{http://www.tedpavlic.com/facjobsearch/}
+%\end{innerlist}
+
+\section{ Education}
+
+\textbf{Purdue University}, West Lafayette, IN \\
+\vspace{-.18in}\\
+\emph{Ph.D. student in Electrical and Computer Engineering(GPA: 4.0/4.0)}
+             \hfill{Spring 2019}\\
+ %       \begin{innerlist}
+\vspace{-.15in}
+%        \item Thesis : Multiple UAVs Detection from Moving Camera, Advisor:  Charles Bouman
+%        \end{innerlist}
+
+\textbf{Xi'an Jiaotong University}, Xi'an, China \\
+\vspace{-.18in}\\
+\emph{M.S. in Electrical and Computer Engineering(GPA: 3.8/4.0)} \hfill{July 2013}\\
+\emph{B.A. in Japanese(GPA: 90.2/100)} \hfill {July 2010}\\
+%\emph{Minor in Finance Engineering(GPA: 87.0/100)} \hfill {July 2010}\\
+%\vspace{-.05in}
+%	\begin{innerlist}
+%        \item Thesis: Hierarchical Clustering-Based Places-of-Interests Mining from Social Media and Image GPS Location Estimation, Advisor: Xueming Qian
+%        \end{innerlist}
+\vspace{-.25in}
+
+%\section{Research Interests}
+%\vspace{+.1 in}
+% Computer Vision, Image Processing, Machine Learning, Deep Learning, Artificial Intelligence\\
+%\vspace{-.1in}
+%
+%%\section{Coursework}
+%%	Computer Vision, Machine Learning, Pattern Recognition, Image Processing, Advanced Algorithm, Probability Theory $\&$ Stochastic Process
+%
+%\vspace{-.1in}
+\section{ Skills}
+\textbf{Programming:} Python, C\texttt{++}, Java, C, Matlab\\
+%\textbf{Language :} Chinese, English, Japanese\\
+\textbf{Research Area :} Computer Vision, Image Processing Algorithms, Computational Imaging, Model Based Image Reconstruction%, Machine Learning Algorithms
+
+\vspace{-.1in}
+\section{ Research Experience}
+
+\textbf{Texas Instuments } \\
+\emph{Researcher at PAL Lab}
+\begin{outerlist}
+\vspace{-.1in}
+\item[] \textbf{Research Focus: Post Processing for Motion Refinement} \hfill {Feb 2019 - present}
+\begin{innerlist}
+\vspace{-.05in}        
+        \item Developed algorithm to refine traditional hardware accelerator output by using post processing neural network
+        \item Optimized deep neural in order to run on the hardware
+        \item Verified algorithm on large dataset 
+        \item Deploy the system on the hardware
+        \end{innerlist}
+\vspace{-.05in}
+\item[] \textbf{Research Focus: Post Processing for Image Depth Estimation} \hfill {May 2018 - Aug 2018}
+        \begin{innerlist}
+\vspace{-.05in}
+        \item Working on developing super-efficient post processing neural network for depth estimation
+	
+        \end{innerlist}
+\vspace{.15in}
+\end{outerlist}
+
+
+\textbf{Xmotors.ai } \\
+\emph{Research Intern with Yandong Guo and Cheng Lu}
+\begin{outerlist}
+\vspace{-.1in}
+\item[] \textbf{Research Focus: Image Depth Estimation from Stero Image Pairs} \hfill {Feb 2018 - May  2018}
+        \begin{innerlist}
+\vspace{-.05in}
+        \item Improved current state of art disparity estimation algorithm
+	\item Tested algorithm on KITTI, Middleburry and ETH3D datasets
+	
+        \end{innerlist}
+\vspace{.15in}
+\end{outerlist}
+
+\textbf{Purdue University } \\
+\emph{Graduate Research Assistant with Prof. Charles Bouman} 
+\begin{outerlist}
+ \vspace{-.1in}
+% \item[] \textbf{Research Focus: Deep Learning for Biomedical Imaging} \hfill {Aug 2018 - Dec 2018}
+% \begin{innerlist}
+% \vspace{-.05in}        
+%         \item Developed algorithm to detect blood vessel in CT image
+%         \item Explored traditional computer vision algorithm combined with deep learning algorithm  
+%         \item Verified algorithm on large dataset  	
+%         \end{innerlist}
+% \vspace{-.05in}
+\item[] \textbf{Research Focus: Deep Learning for Moving Object Detection and Tracking} \hfill {Dec 2016 - Present}
+\begin{innerlist}
+\vspace{-.05in}        
+        \item Developed multi-layer moving object detection algorithm using appearance and motion of moving object
+        \item Explored appearance based Convolutional Neural Network classification algorithm  
+        \item Verified algorithm on large dataset  	
+        \end{innerlist}
+\item[] \textbf{Research Focus: Multi-target detection/tracking from a single camera } \hfill {Dec 2014 - Dec 2016}
+        \begin{innerlist}
+\vspace{-.05in}
+        \item Integrate %\textbf{machine learning method(SVM/Deep Learning)} 
+        to moving object detection
+        \item Established feature-based registration method for background motion estimation
+        \item Developed motion based moving object detection algorithm using background subtracted image
+        \item Combined Kalman tracking to improve detection accuracy
+        \item Optimized detection/tracking algorithm using \textbf{OpenMP} to run on Odroid board in real time
+	\item Collaborated with Navel Postgraduate School to collect real flying videos
+        \item Constructed dataset of 50 videos of real field test with multiple moving objects in view
+	\item Publicized real flying object datasets by setting up website using JavaScript  and HTML 
+        \item Validated algorithm on large dataset using 	\textbf{Python} 
+        \item Delivered code for real flying drones with automatic collision avoidance(autopilot)
+        \end{innerlist}
+\item[] \textbf{Research Focus: Dots/Character Marks Protection} \hfill {Sep 2013 - Dec 2014}
+\begin{innerlist}
+\vspace{-.05in}
+        \item Developed noise removing algorithm for scanned documents to protect dots/character marks.	
+        \end{innerlist}
+\vspace{.15in}
+\end{outerlist}
+
+
+\textbf{Xi'an Jiaotong University } \\
+\emph{Graduate Research Assistant with Prof. Xueming Qian}
+\begin{outerlist}
+\vspace{-.1in}
+
+        \item[] \textbf{Research Focus: Refine Image Location Estimation by Using Mined Near-Duplicate Image Groups}  \hfill {Jul 2012 - Sep 2013}
+        \begin{innerlist}
+\vspace{-.05in} 
+        \item Improved location estimation precision by enhancing SIFT features
+        \item Mined salient features within each near duplicated image group 
+        \end{innerlist}
+
+        \item[] \textbf{Research Focus: Places of Interest Mining} \hfill {Jul 2011 - Sep 2012}
+        \begin{innerlist}
+\vspace{-.05in}
+        \item Developed algorithm to mine near-duplicate image groups for 80 places of interest
+	\item Advised $5$ undergraduate students to crawl images from social media websites
+	\item Trained students to construct large scale image set 
+        \item Constructed GeO-tagged Large Dataset(GOLD) containing 0.22 million images covering 80 famous travel sites throughout world
+        \item Tested and verified algorithm  on constructed dataset 
+        \end{innerlist}
+
+        
+        \item[] \textbf{Research Focus: Image Location Estimation for Places of Interest}  \hfill {Sep 2010 - Jul 2011}
+        \begin{innerlist}
+\vspace{-.05in}
+        \item Developed fast algorithm of location estimation for places of interest from users' uploaded image from social media using \textbf{C\texttt{++}}
+        \item Constructed hierarchy structure to accelerate location estimation
+        \end{innerlist}
+        
+\vspace{.15in}
+\end{outerlist}
+
+
+\textbf{Information-Technology Talent Program (Xi'an Jiaotong University) } \\
+\emph{Undergraduate Research Project with Prof. Xueming Qian}
+\begin{outerlist}
+\vspace{-.1in}
+\item[] \textbf{Research Focus: Good Features for Image Classification } \hfill {Sep 2009 - Dec  2009}
+        \begin{innerlist}
+\vspace{-.05in}
+        \item Developed new feature descriptor for salient point in order of image retrieval and analysis
+	\item Combined color and HOG information to generate descriptor
+	\item Implemented feature extraction and image classification/retrieval in \textbf{C\texttt{++}}
+	\item Improved image retrieval accuracy by 10$\%$
+        \end{innerlist}
+        \item[] \textbf{Research Focus: Acoustical Signal for Video Retrieval } \hfill {Dec 2009 - Sep 2010}
+        \begin{innerlist}
+\vspace{-.05in}
+        \item Applied SVM to recognize and classify acoustical signal and built a system of training and classifying acoustical signal from videos
+        \item Extracted Mel Frequency Cepstral Coefficient (MFCC) features for videos using \textbf{MATLAB}
+       %\item Improved video classification rate by combining audio and image signal 
+        \end{innerlist}
+%\vspace{.25in}
+\vspace{.15in}
+\end{outerlist}
+
+%\textbf{Xi'an Jiaotong University } \\
+%\emph{Undergraduate Research Project with Dr. Hongquan Cao}
+%\begin{outerlist}
+%\vspace{-.1in}
+%\item[] \textbf{Research Focus: Misuse Analysis $\&$ Correction for Foreign Learner} \hfill {Sep 2008 - Jul 2010}
+%        \begin{innerlist}
+%\vspace{-.05in}
+%        \item Analyzed Japanese verb and adjectival collocations for error database
+%	\item Utilized statistical model in error analysis 
+%	\item Built automatic correction system
+%	%\item Accomplished thesis in \textbf{Japanese} 
+%        \end{innerlist}
+%\vspace{.1in}
+%\end{outerlist}
+%\section{Work Experience}
+%\vspace{-.1in}
+\vspace{-.1in}
+%\section{Papers Under Review}
+%\vspace{-.1in}
+%\begin{bibsection}
+%	\item {\bf  Li, Q.} et al. "A Novel Model for Estimating Citywide Hourly Traffic Emissions Using Cellular Phone Activity Data", \emph{Intelligent Transportation Systems, IEEE Transactions on}. (Major Revision)
+%\vspace{-.1in}
+%    \item Ran, B., Cheng, Y., Jin, J., Ding, F., $\&$ {\bf  Li, Q.}.  "A Feature Based Approach to Large-Scale Freeway Congestion Detection Using Full Cellular Activity Data" ,
+%	\emph{Intelligent Transportation Systems, IEEE Transactions on}. (Under Review)
+%\vspace{-.1in}
+%\item Wan, X., Chen, X., $\&$ {\bf  Li, Q.}, Ding, F., Cheng, Y., Ran, B..  "Data-Driven Prediction System of Dynamic People Flow in Large Urban Network Using Cellular Probe Data" ,
+%	\emph{ In Transportation Research Board 96th Annual Meeting}. (Under Review)
+%\vspace{-.1in}
+%\item Wan, X., Chen, X., $\&$ {\bf  Li, Q.}, Ding, F., Cheng, Y., Ran, B..  "Trip Chain Based Travel Mode Split Using Mobile Phone Traces and Web Mapping Service Data" ,
+%	\emph{ In Transportation Research Board 96th Annual Meeting}. (Under Review)
+%\vspace{-.1in}
+%\item Li, S., Cheng, Y., Ding, F., $\&$ {\bf  Li, Q.}, Ran, B..  "Urban Arterial Congestion Detection Using Full Cellular Activity Data" ,
+%	\emph{ In Transportation Research Board 96th Annual Meeting}. (Under Review)
+%\vspace{-.1in}
+
+%\end{bibsection}
+
+\section{Teaching Experience}
+\textbf{Teaching Assistant for Purdue's Model Based Image Processing } \hfill {2017/2014 Fall\\}\vspace{-.3in}\\
+ \begin{innerlist}
+\vspace{-.05in}
+        \item Teach students \textbf{ Model Based Image Processing Algorithms}, Matlab and \textbf{C} programming
+	\item Advised students' understanding about \textbf{ MAP Image Restoration, EM Algorithm, Markov Random Fields and Image Segmentation}
+        \end{innerlist}
+%\vspace{-.05in}
+\textbf{Teaching Assistant for Purdue's Image Processing I } \hfill { 2015 Spring}\\ \vspace{-.3in}\\
+ \begin{innerlist}
+\vspace{-.05in}
+	\item Advised students' understanding about \textbf{ Image Filtering, Connected Components, Image Restoration$/$Halftoning}
+        \end{innerlist}
+
+\vspace{-.1in}
+\section{ Volunteer $\&$ Leadership}
+\textbf{Volunteer} to work as Japanese Instructor in Aurora Studio  \hfill 2008-2013 \\
+ \textbf{Leadership Experience}  in Mathematical Modeling Club of Xi'an Jiaotong University \hfill  2008-2013 \\
+\textbf{Organized} Microsoft Student Research Club (around $100$ students) \hfill 2007-2012 
+
+ \vspace{-.1in}
+\section{ Academic Service}
+\textbf{Member} IEEE  \hfill 2019- \\
+ \textbf{Reviewer}  for  FG 2019 : The 14th IEEE International Conference on Automatic Face and Gesture Recognition \hfill  2019 \\
+ \textbf{Reviewer}  for International Conference on Computer Science and Application Engineering  \hfill  2019 
+  \textbf{Reviewer}  for IEEE International Conference on Industrial and Information Systems \hfill  2019 
+%\section{Honors and Awards}
+%Outstanding Graduate, Xi'an Jiaotong University \hfill June 2013 \\
+%Graduate with hornor, Xi'an Jiaotong University \hfill June 2010 \\
+%Dean's List, Xi'an Jiaotong University \hfill 2006-2010 
+
+\vspace{-.1in}
+\section{ Publications}
+
+\begin{bibsection}
+
+% \item  {\bf Li, J.}, Ye, D. H., Kolsch, M., Wachs, J., $\&$ Bouman, C. (2019). Fast and Robust UAV to UAV Detection and Tracking. Submitted to  \emph{ IEEE Transactions on Image Processing}.
+% \vspace{-.05in}
+\item  Ye, D. H., {\bf Li, J.}, Chen, Q, Wachs, J., $\&$ Bouman, C. (2018). Deep Learning for Moving Object Detection and Tracking from a Single Camera in Unmanned Aerial Vehicles (UAVs). In  \emph{ EI}, Best Paper Award.
+\vspace{-.05in}
+
+ 	\item {\bf Li, J.}, Ye, D. H., Chung, T., Kolsch, M., Wachs, J., $\&$ Bouman, C. (2016). Multi-target detection and tracking from a single camera in Unmanned Aerial Vehicles (UAVs). In  \emph{ International Conference on Intelligent Robots and Systems (IROS)}.
+\vspace{-.05in}
+
+
+    \item {\bf Li, J.}, Qian, X., Lan, K., Qi, P., $\&$ Sharma, A. (2015). Improved image GPS location estimation by mining salient features. \emph{Signal Processing: Image Communication}.
+\vspace{-.05in}
+
+    \item {\bf  Li, J.}, Qian, X.,  Li, Q., Zhao, Y., Wang, L., $\&$ Tang, Y. Y. (2015). Mining near duplicate image groups. \emph{Multimedia Tools and Applications}.
+\vspace{-.05in}
+
+
+    \item {\bf  Li, J.}, Qian, X., Tang, Y., Yang, L., $\&$ Tao, M. (2013). GPS estimation for places of interest from social users' uploaded photos. \emph{ IEEE Transactions on Multimedia}.
+\vspace{-.05in}
+
+    \item {\bf  Li, J.}, Qian, X., Tang, Y. Y., Yang, L., $\&$  Liu, C. (2013). GPS estimation from users’ photos.\emph{ In International Conference on Multimedia Modeling}.
+\vspace{-.05in}
+
+
+
+%    \item Toomey, T.L., Erickson, D.J., Carlin, B.P., {\bf Quick, H.S.}, Harwood, E.M., Lenk, K.M., and Ecklund, A.M.  ``Is the density of alcohol establishments related to non-violent crime?" \emph{Journal of Studies on Alcohol and Drugs}, 73(1)21--25, 2012.
+%    \item Toomey, T.L., Erickson, D.J., Carlin, B.P., Lenk, K.M., {\bf Quick, H.S.}, Jones, A.M., and Haroowd, E.M. ``The association between density of alcohol establishments and violent crime within urban neighborhoods."  \emph{Alcoholism: Clinical and Experimental Research}, 36(8):1468--1473, 2012.
+%        %To appear \emph{Alcoholism: Clinical and Experimental Research}, 2012.
+%    \item {\bf Quick, H.}, Banerjee, S., and Carlin, B.P. ``Modeling temporal gradients in regionally aggregated California asthma hospitalization data." To appear in {\em The Annals of Applied Statistics}, 2012.
+\end{bibsection}
+
+% \vspace{-.1in}
+% \section{Patents}
+% %\vspace{-.1275in}
+% \begin{bibsection}
+%  	\item Shuhui Jiang, Xueming Qian, Ke Lan, {\bf Jing Li} $\&$  Fan Li, “Social Media User Multimedia Data Management”. NO. ZL 2011 1 0364974.4
+%  	\item {\bf Jing Li},$\&$  Xueming Qian, “Hierarchical fast image global positioning system position estimation method”. NO. ZL 2013 1 0199867.X
+ 	
+% \vspace{-.05in}
+
+% \end{bibsection}
+
+
+
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%% End CV Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------%
+% The following is copyright and licensing information for
+% redistribution of this LaTeX source code; it also includes a liability
+% statement. If this source code is not being redistributed to others,
+% it may be omitted. It has no effect on the function of the above code.
+%----------------------------------------------------------------------%
+% Copyright (c) 2007, 2008, 2009, 2010, 2011 by Theodore P. Pavlic
+%
+% Unless otherwise expressly stated, this work is licensed under the
+% Creative Commons Attribution-Noncommercial 3.0 United States License. To
+% view a copy of this license, visit
+% http://creativecommons.org/licenses/by-nc/3.0/us/ or send a letter to
+% Creative Commons, 171 Second Street, Suite 300, San Francisco,
+% California, 94105, USA.
+%
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+% OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+% MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+% IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+% CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+% TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+% SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+%----------------------------------------------------------------------%
+
+
+
